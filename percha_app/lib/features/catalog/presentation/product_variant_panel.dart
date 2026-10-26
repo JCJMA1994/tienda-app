@@ -63,7 +63,7 @@ class _VariantPanel extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(variant.options.values.join(' · ').isEmpty ? 'Única' : variant.options.values.join(' · '),
-                        style: white.copyWith(fontWeight: FontWeight.w600, fontSize: PerchaType.strong)),
+                        style: white.copyWith(fontWeight: FontWeight.w600, fontSize: PerchaType.strong),),
                     const SizedBox(height: 2),
                     SelectableText('SKU ${variant.sku} · ${variant.barcode}', style: TextStyle(color: PerchaColors.onInverse.withValues(alpha: 0.75), fontSize: PerchaType.meta)),
                     if (variant.avgCostCents != null)

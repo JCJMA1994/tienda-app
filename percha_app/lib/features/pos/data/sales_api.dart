@@ -41,7 +41,7 @@ class SalesApi {
         if (method != null && amountCents > 0) {'method': method.api, 'amountCents': amountCents, if (creditCode != null) 'creditCode': creditCode},
       ],
       'reason': reason,
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     final credit = res['credit'] as Map<String, dynamic>?;
     return ReturnResult(
       number: res['number'] as int,

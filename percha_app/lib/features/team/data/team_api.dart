@@ -67,7 +67,7 @@ class TeamApi {
         if (commissionBp != null || clearCommission) 'commissionBp': commissionBp,
         if (branchId != null || clearBranch) 'branchId': branchId,
         if (active != null) 'status': active ? 'active' : 'disabled',
-      });
+      },);
 
   Future<void> setPin(String memberId, String pin) => _api.put('/team/members/$memberId/pin', body: {'pin': pin});
 

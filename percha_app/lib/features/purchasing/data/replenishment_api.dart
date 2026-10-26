@@ -89,7 +89,7 @@ class ReplenishmentApi {
       'windowDays': p.windowDays,
       'coverDays': p.coverDays,
       'leadDays': p.leadDays,
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     return (res['suppliers'] as List<dynamic>).cast<Map<String, dynamic>>().map(SupplierSuggestion.fromJson).toList();
   }
 }

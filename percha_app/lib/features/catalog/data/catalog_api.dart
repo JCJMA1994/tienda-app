@@ -120,7 +120,7 @@ class Variant {
                   branchId: s['branchId'] as String,
                   quantity: s['quantity'] as int,
                   minQuantity: s['minQuantity'] as int,
-                ))
+                ),)
             .toList(),
       );
 }
@@ -296,7 +296,7 @@ class CatalogApi {
           'branchId': initialStock.branchId,
           'items': [for (final i in initialStock.items) {'options': i.options, 'quantity': i.quantity}],
         },
-    });
+    },);
     return Product.fromJson(res as Map<String, dynamic>);
   }
 
@@ -313,7 +313,7 @@ class CatalogApi {
         'items': [
           {'variantId': variantId, if (delta != null) 'delta': delta, if (counted != null) 'counted': counted},
         ],
-      });
+      },);
 
   Future<void> setMinStock({required String branchId, required String variantId, required int minQuantity}) =>
       _api.put('/inventory/min-stock', body: {'branchId': branchId, 'variantId': variantId, 'minQuantity': minQuantity});

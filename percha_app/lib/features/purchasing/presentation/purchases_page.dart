@@ -111,7 +111,7 @@ class _PurchasesPageState extends ConsumerState<PurchasesPage> {
                               subtitle: Text([
                                 o.status.label,
                                 if (o.expectedAt != null && o.status.receivable) 'llega ${date.format(o.expectedAt!)}',
-                              ].join(' · ')),
+                              ].join(' · '),),
                               trailing: Text(formatCents(o.totalCents), style: const TextStyle(fontWeight: FontWeight.w600)),
                               onTap: () async {
                                 await context.push('/purchases/${o.id}');

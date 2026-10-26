@@ -53,7 +53,7 @@ class CreditsApi {
         'payments': [
           {'method': method, 'amountCents': amountCents},
         ],
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 }
 
 final creditsApiProvider = Provider<CreditsApi>((ref) => CreditsApi(ref.watch(apiClientProvider)));

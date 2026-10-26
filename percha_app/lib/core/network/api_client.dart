@@ -161,7 +161,7 @@ class AuthInterceptor extends QueuedInterceptor {
         await setTokens(StoredTokens(
           accessToken: res.data!['accessToken'] as String,
           refreshToken: res.data!['refreshToken'] as String? ?? kCookieSession,
-        ));
+        ),);
       } on DioException {
         await setTokens(null);
         onSessionExpired();

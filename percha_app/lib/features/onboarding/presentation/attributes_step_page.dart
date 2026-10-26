@@ -9,7 +9,7 @@ import '../data/store_api.dart';
 import 'onboarding_scaffold.dart';
 
 class _AttrDraft {
-  _AttrDraft(this.name, this.values, {this.enabled = true, this.existing = false});
+  _AttrDraft(this.name, this.values, {this.existing = false}) : enabled = true;
   String name;
   final List<String> values;
   bool enabled;
@@ -51,7 +51,7 @@ class _AttributesStepPageState extends ConsumerState<AttributesStepPage> {
                 a['name'] as String,
                 (a['values'] as List<dynamic>).map((v) => (v as Map<String, dynamic>)['value'] as String).toList(),
                 existing: true,
-              )));
+              ),),);
       }
     } catch (e) {
       _error = errorText(e);

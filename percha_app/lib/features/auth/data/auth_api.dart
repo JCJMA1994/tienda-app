@@ -36,7 +36,7 @@ class AuthApi {
       if (code != null) 'code': code,
       if (recoveryCode != null) 'recoveryCode': recoveryCode,
       if (tenantId != null) 'tenantId': tenantId,
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     return parseLoginResult(res);
   }
 
@@ -62,7 +62,7 @@ class AuthApi {
         'password': password,
         if (code != null) 'code': code,
         if (recoveryCode != null) 'recoveryCode': recoveryCode,
-      });
+      },);
 
   Future<LoginResult> acceptInvitation({required String token, String? name, required String password}) async {
     final res = await _api.post(

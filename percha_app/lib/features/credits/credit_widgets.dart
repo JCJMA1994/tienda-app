@@ -52,7 +52,7 @@ Future<void> showCreditIssued(BuildContext context, WidgetRef ref, {required Str
             child: Text('Entrégalo al cliente: el código no se vuelve a mostrar. Es al portador.', style: TextStyle(color: PerchaColors.warn)),
           ),
         ),
-      ]),
+      ],),
       actions: [
         TextButton.icon(
           onPressed: () => Clipboard.setData(ClipboardData(text: code)),
@@ -145,10 +145,10 @@ class _CreditCodeDialogState extends ConsumerState<_CreditCodeDialog> with Actio
               subtitle: Text([
                 if (info.customerName != null) info.customerName!,
                 use < widget.totalCents ? 'Cubre ${formatCents(use)}; el resto (${formatCents(widget.totalCents - use)}) se paga con otro medio' : 'Cubre el total',
-              ].join('\n')),
+              ].join('\n'),),
             ),
           ),
-      ]),
+      ],),
       actions: [
         TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
         if (!usable) FilledButton(onPressed: busy ? null : _check, child: const Text('Verificar')),

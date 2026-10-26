@@ -123,7 +123,7 @@ class _PoFormPageState extends ConsumerState<PoFormPage> {
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: suppliers.any((s) => s.id == _supplierId) ? _supplierId : null,
+                        initialValue: suppliers.any((s) => s.id == _supplierId) ? _supplierId : null,
                         decoration: const InputDecoration(labelText: 'Proveedor'),
                         items: [for (final s in suppliers.where((s) => s.active)) DropdownMenuItem(value: s.id, child: Text(s.name))],
                         onChanged: (v) => setState(() => _supplierId = v),

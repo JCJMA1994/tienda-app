@@ -8,7 +8,6 @@ import '../../core/forms/dialogs.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/widgets/action_runner.dart';
 import '../../core/widgets/percha_widgets.dart';
-import '../auth/application/session_controller.dart';
 import '../onboarding/data/store_api.dart';
 import '../pos/offline/pos_snapshot.dart';
 import '../pos/presentation/scanner_page.dart';
@@ -104,10 +103,12 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
       final c = await ref.read(countsApiProvider).add(widget.id, v.id);
       final name = '${v.productName} ${v.optionsLabel}'.trim();
       final n = c.items.where((i) => i.variantId == v.id).firstOrNull?.counted ?? 0;
-      if (mounted) setState(() {
+      if (mounted) {
+        setState(() {
         _count = c;
         _last = name;
       });
+      }
       return (message: '+1 $name (van $n)', ok: true);
     } catch (e) {
       return (message: errorText(e), ok: false);
@@ -123,12 +124,12 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
     final v = await runAction(() => lookupVariant(ref, code, branch.id), errorAsSnack: true);
     if (!mounted) return;
     if (v == null) {
-      HapticFeedback.heavyImpact();
+      await HapticFeedback.heavyImpact();
       snack('No encontramos el código $code');
     } else {
       final c = await runAction(() => ref.read(countsApiProvider).add(widget.id, v.id), errorAsSnack: true);
       if (c != null && mounted) {
-        HapticFeedback.selectionClick();
+        await HapticFeedback.selectionClick();
         setState(() {
           _count = c;
           _last = '${v.productName} ${v.optionsLabel}'.trim();
@@ -162,7 +163,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
               title: const Text('Fue un conteo COMPLETO de la sucursal'),
               subtitle: const Text('Las prendas con stock que no se contaron quedarán en 0'),
             ),
-          ]),
+          ],),
           actions: [
             TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Volver')),
             FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Aplicar')),
@@ -190,7 +191,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
               tooltip: 'Más opciones',
               onSelected: (_) async {
                 await runAction(() => ref.read(countsApiProvider).cancel(c.id), errorAsSnack: true);
-                if (mounted) context.pop();
+                if (mounted && context.mounted) context.pop();
               },
               itemBuilder: (_) => const [PopupMenuItem(value: 'cancel', child: Text('Cancelar conteo (sin ajustar)'))],
             ),
@@ -220,7 +221,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
                       // Cámara continua: se pasan muchas prendas seguidas sin volver a abrirla.
                       onPressed: () => scanContinuous(context, title: 'Contando', onCode: _countCode),
                     ),
-                  ]),
+                  ],),
                 ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -229,7 +230,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
                   if (c.missing > 0) Pill('Faltan ${c.missing}', warn: true),
                   const SizedBox(width: 6),
                   if (c.extra > 0) Pill('Sobran ${c.extra}'),
-                ]),
+                ],),
               ),
               const SizedBox(height: PerchaSpace.sm),
               Expanded(
@@ -248,13 +249,13 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
                         if (d != 0) Text(d > 0 ? '+$d' : '$d', style: TextStyle(color: d < 0 ? PerchaColors.warn : PerchaColors.accentInk, fontWeight: FontWeight.w700)),
                         const SizedBox(width: 12),
                         Text('${i.counted}', style: const TextStyle(fontSize: PerchaType.title, fontWeight: FontWeight.w700)),
-                      ]),
+                      ],),
                       onTap: c.open ? () => _edit(i) : null,
                     );
                   },
                 ),
               ),
-            ]),
+            ],),
       bottomNavigationBar: c != null && c.open
           ? SafeArea(
               child: Padding(

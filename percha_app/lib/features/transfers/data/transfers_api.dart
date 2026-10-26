@@ -94,13 +94,13 @@ class TransfersApi {
         'items': [for (final e in items.entries) {'variantId': e.key, 'quantity': e.value}],
         if (notes != null && notes.isNotEmpty) 'notes': notes,
         if (shipment != null) 'shipment': shipment,
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 
   Future<Transfer> receive(String id, Map<String, int> received, {String? notes}) async =>
       Transfer.fromJson(await _api.post('/transfers/$id/receive', body: {
         'items': [for (final e in received.entries) {'itemId': e.key, 'quantity': e.value}],
         if (notes != null && notes.isNotEmpty) 'notes': notes,
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 
   Future<void> cancel(String id) => _api.post('/transfers/$id/cancel');
 }

@@ -50,7 +50,7 @@ class AdminApi {
         if (status != null) 'status': status,
         if (planCode != null) 'planCode': planCode,
         if (extendDays != null) 'extendDays': extendDays,
-      });
+      },);
 
   Future<void> markPaid(String invoiceId, {required String method, required String reference}) =>
       _api.post('/admin/invoices/$invoiceId/mark-paid', body: {'method': method, 'reference': reference});

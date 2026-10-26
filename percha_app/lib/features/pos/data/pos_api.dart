@@ -82,7 +82,7 @@ class PosApi {
       'branchId': branchId,
       'items': [for (final i in items) {'variantId': i.variantId, 'quantity': i.quantity}],
       'discountCents': discountCents,
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     return res['totalCents'] as int;
   }
 

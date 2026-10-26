@@ -70,7 +70,7 @@ class NotificationsPage extends ConsumerWidget {
                     Icon(Icons.notifications_none, size: 48, color: PerchaColors.muted),
                     const SizedBox(height: 12),
                     Center(child: Text('Estás al día', style: Theme.of(context).textTheme.titleMedium)),
-                  ]);
+                  ],);
                 }
                 final groups = <String, List<AppNotification>>{};
                 for (final n in items) {

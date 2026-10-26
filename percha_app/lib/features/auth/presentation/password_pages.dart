@@ -140,7 +140,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> with Acti
                         last: true,
                         onSubmitted: (_) => _submit(),
                       ),
-                    ]),
+                    ],),
                   ),
                   const SizedBox(height: PerchaSpace.xl),
                   BusyButton(label: 'Guardar contraseña', busy: busy, onPressed: _submit),

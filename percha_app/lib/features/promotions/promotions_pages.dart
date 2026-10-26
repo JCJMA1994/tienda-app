@@ -46,7 +46,7 @@ class PromotionsPage extends ConsumerWidget {
                       subtitle: Text([
                         switch (r.promo.scope) { 'categories' => '${r.promo.categoryIds.length} categoría(s)', 'products' => '${r.promo.productIds.length} producto(s)', _ => 'Todo el catálogo' },
                         'desde ${date.format(r.startsAt)}${r.endsAt == null ? '' : ' hasta ${date.format(r.endsAt!)}'}',
-                      ].join(' · ')),
+                      ].join(' · '),),
                       trailing: Pill(r.status, warn: r.status != 'Vigente'),
                       onTap: canEdit ? () => _edit(context, ref, r) : null,
                     ),
@@ -114,7 +114,7 @@ class _PromotionFormPageState extends ConsumerState<PromotionFormPage> with Acti
         'startsAt': _start.toUtc().toIso8601String(),
         'endsAt': _end?.toUtc().toIso8601String(),
         'active': _active,
-      });
+      },);
       return true;
     });
     if (ok == true && mounted) Navigator.pop(context, true);
@@ -168,7 +168,7 @@ class _PromotionFormPageState extends ConsumerState<PromotionFormPage> with Acti
               Row(children: [
                 Expanded(
                   child: DropdownButtonFormField<int>(
-                    value: _buy,
+                    initialValue: _buy,
                     decoration: const InputDecoration(labelText: 'Lleva'),
                     items: [for (var i = 2; i <= 6; i++) DropdownMenuItem(value: i, child: Text('$i'))],
                     onChanged: (v) => setState(() {
@@ -180,27 +180,27 @@ class _PromotionFormPageState extends ConsumerState<PromotionFormPage> with Acti
                 const SizedBox(width: PerchaSpace.md),
                 Expanded(
                   child: DropdownButtonFormField<int>(
-                    value: _pay,
+                    initialValue: _pay,
                     decoration: const InputDecoration(labelText: 'Paga'),
                     items: [for (var i = 1; i < _buy; i++) DropdownMenuItem(value: i, child: Text('$i'))],
                     onChanged: (v) => setState(() => _pay = v!),
                   ),
                 ),
-              ]),
+              ],),
             if (_kind == 'buy_x_pay_y') Padding(padding: const EdgeInsets.only(top: 6), child: Text('Salen gratis las más baratas de cada grupo de $_buy (pueden ser prendas distintas).', style: text.bodySmall)),
             const SizedBox(height: PerchaSpace.lg),
             Text('¿A qué se aplica?', style: text.titleMedium),
             const SizedBox(height: PerchaSpace.sm),
             Wrap(spacing: 8, children: [
               for (final (v, l) in const [('all', 'Todo'), ('categories', 'Categorías'), ('products', 'Productos')]) ChoiceChip(label: Text(l), selected: _scope == v, onSelected: (_) => setState(() => _scope = v)),
-            ]),
+            ],),
             const SizedBox(height: PerchaSpace.sm),
             if (_scope == 'categories')
               Wrap(spacing: 8, runSpacing: 4, children: [
                 for (final c in categories)
                   FilterChip(label: Text(c.name), selected: _categories.contains(c.id), onSelected: (v) => setState(() => v ? _categories.add(c.id) : _categories.remove(c.id))),
                 if (categories.isEmpty) Text('Aún no hay categorías: créalas desde Productos.', style: text.bodySmall),
-              ]),
+              ],),
             if (_scope == 'products') ...[
               for (final e in _products.entries)
                 ListTile(contentPadding: EdgeInsets.zero, title: Text(e.value), trailing: IconButton(tooltip: 'Quitar', icon: const Icon(Icons.close), onPressed: () => setState(() => _products.remove(e.key)))),
@@ -277,7 +277,7 @@ class _ProductPickerState extends ConsumerState<_ProductPicker> {
                 : ListView(children: [for (final p in snap.data!.items) ListTile(title: Text(p.name), subtitle: Text(p.skuBase), onTap: () => Navigator.pop(context, p))]),
           ),
         ),
-      ]),
+      ],),
     );
   }
 }

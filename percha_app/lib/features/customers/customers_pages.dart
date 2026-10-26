@@ -33,7 +33,7 @@ class _CustomersPageState extends ConsumerState<CustomersPage> {
     _debounce = Timer(const Duration(milliseconds: 300), () => setState(() {
           _q = v.trim();
           _future = ref.read(customersApiProvider).search(_q.isEmpty ? null : _q);
-        }));
+        }),);
   }
 
   @override
@@ -51,7 +51,7 @@ class _CustomersPageState extends ConsumerState<CustomersPage> {
           ? FloatingActionButton.extended(
               onPressed: () async {
                 final c = await showCustomerForm(context, ref);
-                if (c != null && context.mounted) context.push('/customers/${c.id}');
+                if (c != null && context.mounted) await context.push('/customers/${c.id}');
               },
               icon: const Icon(Icons.person_add_alt),
               label: const Text('Nuevo'),
@@ -90,7 +90,7 @@ class _CustomersPageState extends ConsumerState<CustomersPage> {
             },
           ),
         ),
-      ]),
+      ],),
     );
   }
 }
@@ -140,7 +140,7 @@ class CustomerPage extends ConsumerWidget {
                     // Lo que hay que recordarle al cliente apenas llega.
                     if (c.creditBalanceCents > 0) _Stat('Saldo a favor', formatCents(c.creditBalanceCents)),
                     if (c.openLayaways > 0) _Stat('Apartados abiertos', '${c.openLayaways}'),
-                  ]),
+                  ],),
                   if (c.openLayaways > 0)
                     TextButton(onPressed: () => context.push('/layaways'), child: const Text('Ver apartados')),
                   if (c.birthday != null) ...[
@@ -224,7 +224,7 @@ class _Stat extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(label, style: Theme.of(context).textTheme.bodySmall),
               Text(value, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: PerchaType.title)),
-            ]),
+            ],),
           ),
         ),
       );
@@ -346,7 +346,7 @@ class _CustomerFormState extends ConsumerState<_CustomerForm> with ActionRunner 
               title: const Text('Acepta recibir WhatsApp de la tienda'),
               subtitle: const Text('Pregúntale y marca solo si dice que sí'),
             ),
-          ]),
+          ],),
         ),
       ),
       actions: [
@@ -421,7 +421,7 @@ class _CustomerPickerState extends ConsumerState<_CustomerPicker> {
                     subtitle: Text([c.docLabel, if (c.phone != null) c.phone!].where((x) => x.isNotEmpty).join(' · ')),
                     onTap: () => Navigator.pop(context, c),
                   ),
-              ]),
+              ],),
             ),
             OutlinedButton.icon(
               icon: const Icon(Icons.person_add_alt),
@@ -431,7 +431,7 @@ class _CustomerPickerState extends ConsumerState<_CustomerPicker> {
                 if (c != null && context.mounted) Navigator.pop(context, c);
               },
             ),
-          ]),
+          ],),
         ),
       ),
     );

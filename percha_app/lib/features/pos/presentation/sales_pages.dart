@@ -166,7 +166,7 @@ class SaleDetailPage extends ConsumerWidget {
               const SizedBox(height: PerchaSpace.md),
               Wrap(spacing: 6, runSpacing: 6, children: [
                 for (final r in reasons) ActionChip(label: Text(r), onPressed: () => setState(() => controller.text = r)),
-              ]),
+              ],),
               const SizedBox(height: PerchaSpace.sm),
               TextField(controller: controller, decoration: const InputDecoration(labelText: 'Motivo')),
             ],
@@ -221,7 +221,7 @@ class SaleDetailPage extends ConsumerWidget {
                               if (l.optionsLabel.isNotEmpty) l.optionsLabel,
                               '${l.quantity} × ${formatCents(l.unitPriceCents)}',
                               if (l.returnedQuantity > 0) '${l.returnedQuantity} devuelta${l.returnedQuantity == 1 ? '' : 's'}',
-                            ].join(' · ')),
+                            ].join(' · '),),
                             trailing: Text(formatCents(l.lineTotalCents), style: const TextStyle(fontWeight: FontWeight.w600)),
                           ),
                       ],

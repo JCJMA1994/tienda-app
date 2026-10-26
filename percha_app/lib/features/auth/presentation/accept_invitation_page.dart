@@ -60,7 +60,7 @@ class _AcceptInvitationPageState extends ConsumerState<AcceptInvitationPage> wit
                   Text('Te invitaron a un equipo', style: text.headlineMedium),
                   const SizedBox(height: PerchaSpace.sm),
                   Text('Crea tu contraseña para entrar. Si ya usas Percha, ingresa tu contraseña actual.',
-                      style: text.bodyMedium?.copyWith(color: PerchaColors.muted)),
+                      style: text.bodyMedium?.copyWith(color: PerchaColors.muted),),
                   const SizedBox(height: PerchaSpace.xl),
                   if (widget.token.isEmpty) const ErrorBanner('El enlace está incompleto. Pide uno nuevo.'),
                   if (error != null) ...[ErrorBanner(error!), const SizedBox(height: PerchaSpace.lg)],

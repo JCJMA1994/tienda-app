@@ -39,7 +39,7 @@ void main() {
         {'method': 'cash', 'amountCents': 10000},
         {'method': 'card', 'amountCents': 8990},
       ],
-    });
+    },);
     expect(p.totalCents, 18990);
     final back = PendingSale.fromJson(p.toJson().cast<String, dynamic>());
     expect((back.key, back.totalCents, back.error), (p.key, 18990, null));

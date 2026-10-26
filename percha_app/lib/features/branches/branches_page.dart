@@ -113,7 +113,7 @@ class _BranchDialogState extends ConsumerState<_BranchDialog> with ActionRunner 
               last: true,
               onSubmitted: (_) => _save(),
             ),
-          ]),
+          ],),
         ),
       ),
       actions: [

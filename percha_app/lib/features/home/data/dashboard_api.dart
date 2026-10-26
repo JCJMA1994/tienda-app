@@ -24,6 +24,6 @@ final lowStockProvider = FutureProvider.autoDispose<List<LowStockItem>>((ref) as
             productName: r['productName'] as String,
             options: (r['options'] as Map<String, dynamic>).values.join(' · '),
             quantity: r['quantity'] as int,
-          ))
+          ),)
       .toList();
 });

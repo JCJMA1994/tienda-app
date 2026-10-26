@@ -6,7 +6,6 @@ import '../../../core/money.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/action_runner.dart';
 import '../../../core/widgets/percha_widgets.dart';
-import '../../auth/application/session_controller.dart';
 import '../../onboarding/data/store_api.dart';
 import '../data/purchasing_api.dart';
 import '../data/replenishment_api.dart';
@@ -79,7 +78,7 @@ class _ReplenishmentPageState extends ConsumerState<ReplenishmentPage> with Acti
           child: Wrap(spacing: 8, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
             SizedBox(width: 112, child: Text(label, style: text.bodySmall)),
             for (final (v, l) in options) ChoiceChip(label: Text(l), selected: v == value, onSelected: (_) => setState(() => onPick(v))),
-          ]),
+          ],),
         );
 
     return Scaffold(
@@ -150,7 +149,7 @@ class _SupplierCard extends StatelessWidget {
             icon: const Icon(Icons.post_add),
             label: Text('Crear orden · $units prenda${units == 1 ? '' : 's'} · ${formatCents(cost)}'),
           ),
-        ]),
+        ],),
       ),
     );
   }
@@ -181,14 +180,14 @@ class _ItemRow extends StatelessWidget {
               Flexible(child: Text(item.optionsLabel.isEmpty ? 'Única' : item.optionsLabel, style: const TextStyle(fontWeight: FontWeight.w600))),
               const SizedBox(width: 8),
               Pill(item.urgencyLabel, warn: item.urgent),
-            ]),
+            ],),
             Text(why, style: text.bodySmall),
-          ]),
+          ],),
         ),
         IconButton(tooltip: 'Menos', icon: const Icon(Icons.remove_circle_outline), onPressed: qty > 0 ? () => onChange(qty - 1) : null),
         SizedBox(width: 32, child: Text('$qty', textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: PerchaType.title))),
         IconButton(tooltip: 'Más', icon: const Icon(Icons.add_circle_outline), onPressed: () => onChange(qty + 1)),
-      ]),
+      ],),
     );
   }
 }

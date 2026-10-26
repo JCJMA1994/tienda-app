@@ -26,7 +26,7 @@ class _TransferDetailPageState extends ConsumerState<TransferDetailPage> with Ac
           ..invalidate(transferProvider(widget.id))
           ..invalidate(transfersProvider);
         if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(done)));
-    }, errorAsSnack: true);
+    }, errorAsSnack: true,);
   }
 
   @override
@@ -50,7 +50,7 @@ class _TransferDetailPageState extends ConsumerState<TransferDetailPage> with Ac
                   Row(children: [
                     Expanded(child: Text('Transferencia #${t.number}', style: Theme.of(context).textTheme.headlineSmall)),
                     Pill(t.statusLabel, warn: t.status == 'in_transit'),
-                  ]),
+                  ],),
                   Text('${_branchName(branches, t.fromBranchId)} → ${_branchName(branches, t.toBranchId)}', style: Theme.of(context).textTheme.titleMedium),
                   Text('Enviada el ${date.format(t.sentAt)}', style: Theme.of(context).textTheme.bodySmall),
                   if (t.notes != null) Text(t.notes!, style: Theme.of(context).textTheme.bodySmall),
@@ -64,7 +64,7 @@ class _TransferDetailPageState extends ConsumerState<TransferDetailPage> with Ac
                               ? 'Enviadas ${i.sent}'
                               : i.missing! > 0
                                   ? 'Llegaron ${i.received} de ${i.sent} · faltaron ${i.missing}'
-                                  : 'Llegaron ${i.received}'),
+                                  : 'Llegaron ${i.received}',),
                           trailing: canReceive
                               ? Row(mainAxisSize: MainAxisSize.min, children: [
                                   IconButton(
@@ -78,12 +78,12 @@ class _TransferDetailPageState extends ConsumerState<TransferDetailPage> with Ac
                                     icon: const Icon(Icons.add),
                                     onPressed: (_received[i.id] ?? i.sent) < i.sent ? () => setState(() => _received[i.id] = (_received[i.id] ?? i.sent) + 1) : null,
                                   ),
-                                ])
+                                ],)
                               : (i.missing ?? 0) > 0
                                   ? Pill('Faltaron ${i.missing}', warn: true)
                                   : null,
                         ),
-                    ]),
+                    ],),
                   ),
                   for (final g in t.documents)
                     Card(
@@ -105,7 +105,7 @@ class _TransferDetailPageState extends ConsumerState<TransferDetailPage> with Ac
                                 ref.invalidate(transferProvider(widget.id));
                               },
                             ),
-                        ]),
+                        ],),
                       ),
                     ),
                   if (t.receiveNotes != null) ...[const SizedBox(height: PerchaSpace.sm), Text('Nota al recibir: ${t.receiveNotes}', style: Theme.of(context).textTheme.bodySmall)],

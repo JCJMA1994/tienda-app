@@ -138,7 +138,7 @@ class _TwoFactorSetupPageState extends ConsumerState<TwoFactorSetupPage> with Ac
             AppTextField(controller: password, label: 'Contraseña', kind: FieldKind.password, validator: V.required('Ingresa tu contraseña')),
             const SizedBox(height: PerchaSpace.md),
             AppTextField(controller: code, label: 'Código de la app', kind: FieldKind.integer, maxLength: 6, validator: (v) => RegExp(r'^\d{6}$').hasMatch(v ?? '') ? null : 'Son 6 dígitos', last: true),
-          ]),
+          ],),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),

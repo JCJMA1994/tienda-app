@@ -137,7 +137,7 @@ class _CatalogSettingsPageState extends ConsumerState<CatalogSettingsPage> with 
                   ),
                   const SizedBox(height: PerchaSpace.md),
                   DropdownButtonFormField<String?>(
-                    value: _branchId,
+                    initialValue: _branchId,
                     decoration: const InputDecoration(labelText: 'Stock que se muestra', helperText: 'Nunca se muestra la cantidad exacta: solo "Disponible", "Últimas unidades" o "Agotado"'),
                     items: [
                       const DropdownMenuItem(value: null, child: Text('Todas las sucursales')),
@@ -182,7 +182,7 @@ class _CatalogSettingsPageState extends ConsumerState<CatalogSettingsPage> with 
                           onPressed: () => launchUrl(Uri.parse('https://wa.me/?text=${Uri.encodeComponent('Mira nuestras prendas y pide aquí: $_url')}'), mode: LaunchMode.externalApplication),
                         ),
                       ),
-                    ]),
+                    ],),
                   ],
                 ],
               ),
@@ -299,7 +299,7 @@ class _CatalogOrderPageState extends ConsumerState<CatalogOrderPage> with Action
                           trailing: Text(formatCents(i.unitPriceCents * i.quantity)),
                         ),
                       ListTile(title: const Text('Total referencial', style: TextStyle(fontWeight: FontWeight.w600)), trailing: Text(formatCents(o.totalCents), style: const TextStyle(fontWeight: FontWeight.w700))),
-                    ]),
+                    ],),
                   ),
                   Text('El pedido no separa las prendas: confírmalo con el cliente y apártalo o véndelo.', style: text.bodySmall),
                   const SizedBox(height: PerchaSpace.xl),

@@ -189,7 +189,7 @@ class PurchasingApi {
       PurchaseOrder.fromJson(await _api.post('/purchase-orders', body: {
         'branchId': branchId,
         ..._body(supplierId: supplierId, expectedAt: expectedAt, notes: notes, items: items),
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 
   Future<PurchaseOrder> update(String id, {String? supplierId, DateTime? expectedAt, String? notes, List<PoItemInput>? items}) async =>
       PurchaseOrder.fromJson(
@@ -214,7 +214,7 @@ class PurchasingApi {
       ],
       if (notes != null && notes.isNotEmpty) 'notes': notes,
       if (invoice != null) 'supplierInvoice': invoice.toJson(),
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     return (status: res['status'] as String, invoiceStatus: (res['invoice'] as Map<String, dynamic>?)?['status'] as String?);
   }
 

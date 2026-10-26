@@ -93,13 +93,13 @@ class LayawaysApi {
           {'method': method, 'amountCents': depositCents},
         ],
         'days': days,
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 
   Future<Layaway> pay(String id, int amountCents, String method) async => Layaway.fromJson(await _api.post('/layaways/$id/payments', idempotencyKey: newUuid(), body: {
         'payments': [
           {'method': method, 'amountCents': amountCents},
         ],
-      }) as Map<String, dynamic>);
+      },) as Map<String, dynamic>,);
 
   /// Entregar: paga el saldo (si queda) y registra la venta. Devuelve el id de la venta.
   Future<String> complete(String id, {int pendingCents = 0, String method = 'cash', Map<String, Object?>? document}) async {
@@ -108,7 +108,7 @@ class LayawaysApi {
         if (pendingCents > 0) {'method': method, 'amountCents': pendingCents},
       ],
       if (document != null) 'document': document,
-    }) as Map<String, dynamic>;
+    },) as Map<String, dynamic>;
     return (r['sale'] as Map<String, dynamic>)['id'] as String;
   }
 

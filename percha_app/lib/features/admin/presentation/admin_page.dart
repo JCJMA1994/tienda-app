@@ -44,7 +44,7 @@ class _AdminPageState extends ConsumerState<AdminPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ciclo: ${r['invoiced']} facturas, ${r['charged']} cobros, ${r['chargeFailed']} rechazos, ${r['suspended']} suspendidas'),
-        ));
+        ),);
       }
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorText(e))));
@@ -122,7 +122,7 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                                 '${t.products} productos',
                                 '${t.members} usuarios',
                                 if (t.owedCents > 0) 'debe ${formatCents(t.owedCents)}',
-                              ].join(' · ')),
+                              ].join(' · '),),
                               trailing: Wrap(
                                 spacing: 6,
                                 children: [
@@ -212,7 +212,7 @@ class _TenantSheet extends ConsumerWidget {
               Text('Solo después de verificar el dinero en la cuenta (${formatCents(inv.amountCents)}).'),
               const SizedBox(height: PerchaSpace.md),
               DropdownButtonFormField<String>(
-                value: method,
+                initialValue: method,
                 decoration: const InputDecoration(labelText: 'Medio'),
                 items: const [
                   DropdownMenuItem(value: 'plin', child: Text('Plin')),
@@ -255,7 +255,7 @@ class _TenantSheet extends ConsumerWidget {
               _statusLabels[tenant.status] ?? tenant.status,
               if (tenant.periodEnd != null) 'periodo hasta ${date.format(tenant.periodEnd!)}',
               tenant.lastSaleAt == null ? 'sin ventas' : 'última venta ${date.format(tenant.lastSaleAt!)}',
-            ].join(' · '), style: Theme.of(context).textTheme.bodySmall),
+            ].join(' · '), style: Theme.of(context).textTheme.bodySmall,),
             const SizedBox(height: PerchaSpace.lg),
             Wrap(
               spacing: PerchaSpace.sm,
@@ -279,7 +279,7 @@ class _TenantSheet extends ConsumerWidget {
             ),
             const SizedBox(height: PerchaSpace.lg),
             DropdownButtonFormField<String>(
-              value: plans.any((p) => p.code == tenant.planCode) ? tenant.planCode : null,
+              initialValue: plans.any((p) => p.code == tenant.planCode) ? tenant.planCode : null,
               decoration: const InputDecoration(labelText: 'Plan'),
               items: [for (final p in plans) DropdownMenuItem(value: p.code, child: Text('${p.name} · ${formatCents(p.priceCents)}'))],
               onChanged: (v) {
@@ -296,7 +296,7 @@ class _TenantSheet extends ConsumerWidget {
                         title: Text('#${inv.number} · ${formatCents(inv.amountCents)}'),
                         subtitle: Text(inv.status == 'paid'
                             ? 'Pagada ${date.format(inv.paidAt!)}${inv.method == null ? '' : ' · ${inv.method}'}'
-                            : 'Vence ${date.format(inv.dueAt)}'),
+                            : 'Vence ${date.format(inv.dueAt)}',),
                         trailing: inv.status == 'open'
                             ? TextButton(onPressed: () => _markPaid(context, ref, inv), child: const Text('Registrar pago'))
                             : const Pill('Pagada'),

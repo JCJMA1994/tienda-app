@@ -72,7 +72,7 @@ class _ImportPageState extends ConsumerState<ImportPage> {
                   line: (err['row'] as int) < 0 ? 0 : parsed.rows[err['row'] as int]['_line'] as int,
                   message: err['message'] as String,
                 ),
-            ]);
+            ],);
       } else {
         setState(() => _error = e.message);
       }

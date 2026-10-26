@@ -44,7 +44,7 @@ class _OfflineBannerState extends ConsumerState<OfflineBanner> {
     final left = ref.read(offlineQueueProvider).length;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(done > 0 ? '$done venta${done == 1 ? '' : 's'} sincronizada${done == 1 ? '' : 's'}${left > 0 ? ' · quedan $left' : ''}' : 'Aún sin conexión: se reintentará sola'),
-    ));
+    ),);
   }
 
   void _review(List<PendingSale> failed) {
@@ -95,7 +95,7 @@ class _OfflineBannerState extends ConsumerState<OfflineBanner> {
                       }
                     },
                   ),
-                ]),
+                ],),
               ),
           ],
         ),
@@ -133,7 +133,7 @@ class _OfflineBannerState extends ConsumerState<OfflineBanner> {
               onPressed: _syncing ? null : _sync,
               child: _syncing ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Sincronizar'),
             ),
-        ]),
+        ],),
       ),
     );
   }

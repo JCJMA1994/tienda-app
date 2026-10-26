@@ -52,7 +52,7 @@ void main() {
         einvoiceStatusProvider.overrideWith((ref) async => const EInvoiceStatus(enabled: false, anonLimitCents: 70000)),
         // Sin servidor: la cotización falla por red y se usa el total local.
         posApiProvider.overrideWithValue(_OfflinePosApi()),
-      ]);
+      ],);
 
   setUp(asked.clear);
 

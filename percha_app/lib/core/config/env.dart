@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Configuración por entorno vía --dart-define (nunca secretos en el binario).
 ///
 ///   flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000/v1
@@ -5,11 +7,12 @@
 class Env {
   const Env._();
 
-  static const apiBaseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    // 10.0.2.2 = localhost de la máquina vista desde el emulador de Android.
-    defaultValue: 'http://10.0.2.2:3000/v1',
-  );
+  static String get apiBaseUrl {
+    const fromEnv = String.fromEnvironment('API_BASE_URL');
+    if (fromEnv.isNotEmpty) return fromEnv;
+    // En Web o Desktop conectamos directo a localhost; en emulador Android a 10.0.2.2
+    return kIsWeb ? 'http://localhost:3000/v1' : 'http://10.0.2.2:3000/v1';
+  }
 
   /// Base de los enlaces de invitación que se comparten con el equipo.
   static const inviteBaseUrl = String.fromEnvironment(

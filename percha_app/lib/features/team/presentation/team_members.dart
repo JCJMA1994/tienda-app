@@ -179,7 +179,7 @@ class _RoleAndBranch extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DropdownButtonFormField<String>(
-          value: role,
+          initialValue: role,
           decoration: const InputDecoration(labelText: 'Rol'),
           items: [for (final r in roles) DropdownMenuItem(value: r, child: Text(roleLabels[r] ?? r))],
           onChanged: (v) {
@@ -188,7 +188,7 @@ class _RoleAndBranch extends StatelessWidget {
         ),
         const SizedBox(height: PerchaSpace.lg),
         DropdownButtonFormField<String?>(
-          value: branchId,
+          initialValue: branchId,
           decoration: const InputDecoration(labelText: 'Sucursal'),
           items: [
             // Un encargado con sucursal fija solo asigna a la suya (la API lo exige).

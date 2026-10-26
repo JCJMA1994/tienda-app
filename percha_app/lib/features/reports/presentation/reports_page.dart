@@ -241,7 +241,7 @@ class _TopProducts extends ConsumerWidget {
                           subtitle: Text([
                             '${t.units} prendas',
                             if (t.grossMarginCents != null) 'margen ${formatCents(t.grossMarginCents!)}',
-                          ].join(' · ')),
+                          ].join(' · '),),
                           trailing: Text(formatCents(t.netSalesCents), style: const TextStyle(fontWeight: FontWeight.w600)),
                         ),
                     ],

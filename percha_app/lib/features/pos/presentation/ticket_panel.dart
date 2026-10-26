@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/forms/dialogs.dart';
 import '../../../core/money.dart';
-import '../../../core/network/api_error.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/percha_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +26,6 @@ import '../domain/checkout.dart';
 import '../domain/promotions.dart';
 import '../application/checkout_controller.dart';
 import '../offline/pos_snapshot.dart';
-import '../data/pos_api.dart';
 import '../data/pos_models.dart';
 import 'pin_dialog.dart';
 
@@ -341,7 +339,7 @@ class _TicketPanelState extends ConsumerState<TicketPanel> {
                         totalCents: totals.total,
                         items: cart.toItems(),
                       );
-                      if (l == null || !mounted) return;
+                      if (l == null || !mounted || !context.mounted) return;
                       ref.read(cartProvider.notifier).clear();
                       setState(() => _customer = null);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Apartado #${l.number}: saldo ${formatCents(l.pendingCents)}')));

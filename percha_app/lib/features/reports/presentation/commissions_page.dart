@@ -54,11 +54,11 @@ class _CommissionsPageState extends ConsumerState<CommissionsPage> {
                           '${s.tickets} venta${s.tickets == 1 ? '' : 's'}',
                           if (s.returns > 0) '${s.returns} devolución${s.returns == 1 ? '' : 'es'}',
                           'neto ${formatCents(s.netCents)} (${formatCents(s.netExTaxCents)} sin IGV)',
-                        ].join(' · ')),
+                        ].join(' · '),),
                         trailing: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.end, children: [
                           Text(s.commissionBp == null ? '—' : formatCents(s.commissionCents), style: const TextStyle(fontWeight: FontWeight.w700, fontSize: PerchaType.title)),
                           Text(s.commissionBp == null ? 'sin comisión' : '${(s.commissionBp! / 100).toStringAsFixed(s.commissionBp! % 100 == 0 ? 0 : 1)} %', style: text.bodySmall),
-                        ]),
+                        ],),
                       ),
                     ),
                   if (d.sellers.isNotEmpty) ...[

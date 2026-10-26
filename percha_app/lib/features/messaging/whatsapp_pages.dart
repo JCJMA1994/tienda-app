@@ -5,7 +5,6 @@ import '../../core/forms/app_form.dart';
 import '../../core/forms/validators.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/widgets/percha_widgets.dart';
-import '../auth/application/session_controller.dart';
 import 'messaging_api.dart';
 
 export 'messaging_api.dart' show messagingApiProvider, whatsappEnabledProvider;
@@ -33,7 +32,7 @@ Future<void> sendReceiptByWhatsApp(BuildContext context, WidgetRef ref, String s
             last: true,
             onSubmitted: (_) => submitForm(form) ? Navigator.pop(ctx, true) : null,
           ),
-        ]),
+        ],),
       ),
       actions: [
         TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),

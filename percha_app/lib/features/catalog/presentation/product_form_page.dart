@@ -139,7 +139,7 @@ class _ProductFormPageState extends ConsumerState<ProductFormPage> {
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String?>(
-                        value: _categoryId,
+                        initialValue: _categoryId,
                         decoration: const InputDecoration(labelText: 'Categoría'),
                         items: [
                           const DropdownMenuItem(value: null, child: Text('Sin categoría')),

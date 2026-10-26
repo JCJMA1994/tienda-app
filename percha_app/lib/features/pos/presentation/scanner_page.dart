@@ -34,6 +34,7 @@ class ScannerPage extends StatefulWidget {
   final Future<ScanFeedback> Function(String code)? onCode;
 
   @override
+  // ignore: no_logic_in_create_state
   State<ScannerPage> createState() => kIsWeb ? _WebCodeEntryState() : _ScannerPageState();
 }
 
@@ -86,7 +87,7 @@ class _WebCodeEntryState extends State<ScannerPage> {
               if (_last != null) Padding(padding: const EdgeInsets.only(top: 12), child: Text(_last!.message, style: TextStyle(color: _last!.ok ? PerchaColors.accentInk : PerchaColors.warn, fontWeight: FontWeight.w600))),
               const SizedBox(height: 16),
               SizedBox(width: double.infinity, child: FilledButton(onPressed: _submit, child: Text(widget.onCode == null ? 'Usar código' : 'Agregar'))),
-            ]),
+            ],),
           ),
         ),
       ),
@@ -134,7 +135,8 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
 
     if (widget.onCode == null) {
       _done = true; // un solo código: se devuelve y se cierra
-      HapticFeedback.mediumImpact();
+      await HapticFeedback.mediumImpact();
+      if (!mounted) return;
       Navigator.pop(context, code);
       return;
     }
@@ -147,7 +149,7 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
     _busy = true;
     try {
       final r = await widget.onCode!(code);
-      r.ok ? HapticFeedback.mediumImpact() : HapticFeedback.heavyImpact();
+      await (r.ok ? HapticFeedback.mediumImpact() : HapticFeedback.heavyImpact());
       if (!mounted) return;
       setState(() {
         _feedback = r;
@@ -217,7 +219,7 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
                     Icon(_feedback!.ok ? Icons.check_circle : Icons.error_outline, color: _feedback!.ok ? PerchaPalette.light.success : PerchaPalette.light.warn),
                     const SizedBox(width: 10),
                     Expanded(child: Text(_feedback!.message, style: TextStyle(color: PerchaPalette.light.ink, fontWeight: FontWeight.w600))),
-                  ]),
+                  ],),
                 ),
               ),
             ),
@@ -242,11 +244,11 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
                       ),
                       const SizedBox(height: 16),
                       OutlinedButton(onPressed: () => Navigator.pop(context), style: OutlinedButton.styleFrom(foregroundColor: Colors.white), child: const Text('Volver')),
-                    ]),
+                    ],),
                   ),
           ),
-        ]);
-      }),
+        ],);
+      },),
     );
   }
 }
@@ -263,7 +265,7 @@ class _WindowPainter extends CustomPainter {
     canvas.drawRRect(r, Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3);
+      ..strokeWidth = 3,);
   }
 
   @override

@@ -112,7 +112,7 @@ class LayawaysPage extends ConsumerWidget {
                             title: Text('#${l.number} · ${l.customerName}', style: const TextStyle(fontWeight: FontWeight.w600)),
                             subtitle: Text(l.status == 'open'
                                 ? 'Saldo ${formatCents(l.pendingCents)} de ${formatCents(l.totalCents)} · hasta ${date.format(l.expiresAt)}'
-                                : formatCents(l.totalCents)),
+                                : formatCents(l.totalCents),),
                             trailing: Pill(l.statusLabel, warn: l.expired),
                             onTap: () async {
                               await context.push('/layaways/${l.id}');
@@ -142,7 +142,7 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
     await runAction(() async {
         await action();
         ref.invalidate(layawayProvider(widget.id));
-    }, errorAsSnack: true);
+    }, errorAsSnack: true,);
   }
 
   Future<void> _pay(Layaway l) async {
@@ -171,7 +171,7 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
       final saleId = await ref.read(layawayProvider(l.id).notifier).deliver(method: method);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Entregado: la venta quedó registrada')));
-        context.push('/sales/$saleId');
+        await context.push('/sales/$saleId');
       }
     });
   }
@@ -192,9 +192,10 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
               const SizedBox(height: PerchaSpace.md),
               if (l.paidCents > 0)
                 for (final (value, label) in const [('store_credit', 'Dejarlo como saldo a favor (vale)'), ('cash', 'Devolver en efectivo'), ('none', 'No devolver (política de la tienda)')])
+                  // ignore: deprecated_member_use
                   RadioListTile<String>(contentPadding: EdgeInsets.zero, value: value, groupValue: refund, onChanged: (v) => setState(() => refund = v!), title: Text(label)),
               AppTextField(controller: reason, label: 'Motivo', validator: V.minLength(3, 'Indica el motivo'), last: true),
-            ]),
+            ],),
           ),
           actions: [
             TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Volver')),
@@ -220,7 +221,7 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
       appBar: AppBar(actions: [
         if (ref.watch(layawayProvider(widget.id)).hasValue)
           IconButton(tooltip: 'Imprimir constancia', icon: const Icon(Icons.print_outlined), onPressed: () => printLayawayVoucher(ref, ref.read(layawayProvider(widget.id)).value!)),
-      ]),
+      ],),
       body: ref.watch(layawayProvider(widget.id)).when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, _) => Padding(padding: const EdgeInsets.all(20), child: ErrorBanner(errorText(e))),
@@ -232,7 +233,7 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
                   Row(children: [
                     Expanded(child: Text('Apartado #${l.number}', style: Theme.of(context).textTheme.headlineSmall)),
                     Pill(l.statusLabel, warn: l.expired),
-                  ]),
+                  ],),
                   TextButton(
                     style: TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
                     onPressed: () => context.push('/customers/${l.customerId}'),
@@ -248,14 +249,14 @@ class _LayawayPageState extends ConsumerState<LayawayPage> with ActionRunner {
                           subtitle: i.options.isEmpty ? null : Text(i.options),
                           trailing: Text(formatCents(i.unitPriceCents * i.quantity)),
                         ),
-                    ]),
+                    ],),
                   ),
                   const SizedBox(height: PerchaSpace.md),
                   Wrap(spacing: PerchaSpace.md, runSpacing: PerchaSpace.md, children: [
                     _Amount('Total', l.totalCents),
                     _Amount('Abonado', l.paidCents),
                     _Amount('Saldo', l.pendingCents, strong: true),
-                  ]),
+                  ],),
                   const SizedBox(height: PerchaSpace.lg),
                   Text('Abonos', style: Theme.of(context).textTheme.titleMedium),
                   for (final p in l.payments)
@@ -302,6 +303,6 @@ class _Amount extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(label, style: Theme.of(context).textTheme.bodySmall),
           Text(formatCents(cents), style: TextStyle(fontWeight: FontWeight.w600, fontSize: strong ? PerchaType.amount : PerchaType.strong)),
-        ]),
+        ],),
       );
 }

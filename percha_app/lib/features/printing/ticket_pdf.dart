@@ -67,7 +67,7 @@ Future<Uint8List> labelsPdf(List<LabelData> labels, {required LabelFormat format
           pw.Row(children: [
             pw.Expanded(child: pw.Text(l.options, maxLines: 1, style: const pw.TextStyle(fontSize: 6.5))),
             pw.Text(l.price, style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold)),
-          ]),
+          ],),
           pw.SizedBox(height: 1),
           pw.Expanded(child: pw.BarcodeWidget(barcode: code, data: l.barcodeData, drawText: true, textStyle: const pw.TextStyle(fontSize: 6))),
         ],

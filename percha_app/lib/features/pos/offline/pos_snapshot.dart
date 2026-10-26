@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,11 +82,11 @@ class PosSnapshot {
     );
   }
 
-  static SellableVariant _toSellable(Map v) => SellableVariant(
+  static SellableVariant _toSellable(Map<String, dynamic> v) => SellableVariant(
         id: v['id'] as String,
         sku: v['sku'] as String,
         productName: v['productName'] as String,
-        options: Map<String, String>.from(v['options'] as Map),
+        options: Map<String, String>.from(v['options'] as Map<dynamic, dynamic>),
         priceCents: (v['priceCents'] as num).toInt(),
         sellable: true,
         stock: (v['stock'] as num).toInt(),
@@ -110,7 +111,7 @@ class PosSnapshotController extends AutoDisposeFamilyAsyncNotifier<PosSnapshot?,
     final raw = prefs.getString(_key);
     final cached = raw == null ? null : PosSnapshot.fromJson(jsonDecode(raw) as Map<String, dynamic>);
     // Se intenta actualizar en segundo plano; si no hay red, queda la foto guardada.
-    Future.microtask(refresh);
+    unawaited(Future.microtask(refresh));
     return cached;
   }
 

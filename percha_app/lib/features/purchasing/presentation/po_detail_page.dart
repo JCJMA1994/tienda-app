@@ -8,7 +8,6 @@ import '../../../core/forms/dialogs.dart';
 import '../../../core/forms/validators.dart';
 import '../../../core/forms/app_form.dart';
 import '../../../core/money.dart';
-import '../../../core/network/api_error.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/percha_widgets.dart';
 import '../../auth/application/session_controller.dart';
@@ -204,7 +203,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> with ActionRunner {
         ScanResult.counted => '${v.productName} ${v.optionsLabel} contada · ${next.units} en total',
         ScanResult.alreadyComplete => '${v.productName} ${v.optionsLabel} ya está completa',
         ScanResult.notInOrder => '${v.productName} ${v.optionsLabel} no está en esta orden',
-      });
+      },);
     } catch (e) {
       if (mounted) _toast(errorText(e));
     } finally {
@@ -325,7 +324,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> with ActionRunner {
                         subtitle: Text([
                           'Pendiente ${l.pending}',
                           if (showCosts) 'costo ${formatCents(d.costs[l.id] ?? l.unitCostCents)}${d.costs.containsKey(l.id) ? ' (editado)' : ''}',
-                        ].join(' · ')),
+                        ].join(' · '),),
                         onLongPress: showCosts ? () => _editCost(l) : null,
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -350,7 +349,7 @@ class _ReceivePageState extends ConsumerState<ReceivePage> with ActionRunner {
               if (showCosts) ...[
                 const SizedBox(height: PerchaSpace.sm),
                 Text('Mantén presionada una línea si la factura trae otro costo: se usa para el costo promedio.',
-                    style: Theme.of(context).textTheme.bodySmall),
+                    style: Theme.of(context).textTheme.bodySmall,),
               ],
               if (error != null) ...[const SizedBox(height: PerchaSpace.lg), ErrorBanner(error!)],
             ],
@@ -416,7 +415,7 @@ class _InvoiceDialogState extends State<_InvoiceDialog> {
               ),
               const SizedBox(width: 8),
               Expanded(child: AppTextField(controller: _numero, label: 'Número', kind: FieldKind.integer, maxLength: 8, validator: V.intRange(min: 1, max: 99999999))),
-            ]),
+            ],),
             const SizedBox(height: PerchaSpace.md),
             OutlinedButton.icon(
               icon: const Icon(Icons.event_outlined),
@@ -428,7 +427,7 @@ class _InvoiceDialogState extends State<_InvoiceDialog> {
             ),
             const SizedBox(height: PerchaSpace.md),
             AppTextField(controller: _total, label: 'Importe total (opcional)', kind: FieldKind.money, validator: V.money(optional: true), last: true),
-          ]),
+          ],),
         ),
       ),
       actions: [

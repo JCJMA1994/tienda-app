@@ -75,7 +75,7 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           if (i > 0) ListTile(leading: const Icon(Icons.star_outline), title: const Text('Usar como portada'), onTap: () => Navigator.pop(ctx, 'cover')),
           ListTile(leading: Icon(Icons.delete_outline, color: PerchaColors.warn), title: Text('Borrar foto', style: TextStyle(color: PerchaColors.warn)), onTap: () => Navigator.pop(ctx, 'delete')),
-        ]),
+        ],),
       ),
     );
     if (action == null) return;
@@ -100,7 +100,7 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(leading: const Icon(Icons.photo_camera_outlined), title: const Text('Tomar foto'), onTap: () => Navigator.pop(ctx, ImageSource.camera)),
           ListTile(leading: const Icon(Icons.photo_library_outlined), title: const Text('Elegir de la galería'), onTap: () => Navigator.pop(ctx, ImageSource.gallery)),
-        ]),
+        ],),
       ),
     );
     if (source != null) await _add(source);
@@ -126,7 +126,7 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
                       Icon(Icons.add_a_photo_outlined, size: 36, color: c.muted),
                       const SizedBox(height: 8),
                       Text(widget.canEdit ? 'Agrega fotos: ayudan a encontrar la prenda' : 'Sin fotos', style: TextStyle(color: c.muted)),
-                    ]),
+                    ],),
             ),
           ),
         ),
@@ -172,9 +172,9 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
                       height: 6,
                       decoration: BoxDecoration(color: i == _index ? Colors.white : Colors.white70, borderRadius: BorderRadius.circular(3)),
                     ),
-                ]),
+                ],),
               ),
-          ]),
+          ],),
         ),
       ),
       if (widget.canEdit) ...[
@@ -223,7 +223,7 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
                       ),
                     ),
                   ),
-                ]),
+                ],),
               ),
             if (canAdd)
               Padding(
@@ -238,10 +238,10 @@ class _ProductGalleryState extends ConsumerState<ProductGallery> {
                 ),
                 ),
               ),
-          ]),
+          ],),
         ),
         Text('Toca ··· en una foto (o mantenla presionada) para ponerla de portada o borrarla.', style: Theme.of(context).textTheme.bodySmall),
       ],
-    ]);
+    ],);
   }
 }

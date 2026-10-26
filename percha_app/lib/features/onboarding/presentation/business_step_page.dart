@@ -130,7 +130,7 @@ class _BusinessStepPageState extends ConsumerState<BusinessStepPage> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _currency,
+                          initialValue: _currency,
                           decoration: const InputDecoration(labelText: 'Moneda'),
                           items: const [
                             DropdownMenuItem(value: 'PEN', child: Text('Soles (S/)')),
@@ -142,7 +142,7 @@ class _BusinessStepPageState extends ConsumerState<BusinessStepPage> {
                       const SizedBox(width: PerchaSpace.md),
                       Expanded(
                         child: DropdownButtonFormField<int>(
-                          value: _taxRateBp,
+                          initialValue: _taxRateBp,
                           decoration: const InputDecoration(labelText: 'Impuesto'),
                           items: const [
                             DropdownMenuItem(value: 1800, child: Text('IGV 18%')),

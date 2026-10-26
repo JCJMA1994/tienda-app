@@ -77,7 +77,7 @@ class _ShipmentFormState extends ConsumerState<ShipmentForm> {
             Icon(Icons.local_shipping_outlined, color: PerchaColors.accentInk),
             const SizedBox(width: 8),
             Expanded(child: Text('Guía de remisión', style: text.titleMedium)),
-          ]),
+          ],),
           Text('SUNAT la exige para mover mercadería entre tus tiendas. Se emite al enviar.', style: text.bodySmall),
           const SizedBox(height: PerchaSpace.md),
           SegmentedButton<String>(
@@ -106,7 +106,7 @@ class _ShipmentFormState extends ConsumerState<ShipmentForm> {
               Expanded(child: AppTextField(controller: c.driverFirst, label: 'Nombres', kind: FieldKind.name, validator: V.minLength(2, 'Requerido'))),
               const SizedBox(width: 8),
               Expanded(child: AppTextField(controller: c.driverLast, label: 'Apellidos', kind: FieldKind.name, validator: V.minLength(2, 'Requerido'))),
-            ]),
+            ],),
             if (!c.lightVehicle) ...[
               const SizedBox(height: PerchaSpace.md),
               AppTextField(controller: c.license, label: 'Brevete', kind: FieldKind.upper, maxLength: 15, validator: V.minLength(5, 'Ingresa el brevete')),
@@ -149,8 +149,8 @@ class _ShipmentFormState extends ConsumerState<ShipmentForm> {
             ),
             const SizedBox(width: 8),
             Expanded(child: AppTextField(controller: c.packages, label: 'Bultos', kind: FieldKind.integer, validator: V.intRange(min: 1, max: 1000), last: true)),
-          ]),
-        ]),
+          ],),
+        ],),
       ),
     );
   }

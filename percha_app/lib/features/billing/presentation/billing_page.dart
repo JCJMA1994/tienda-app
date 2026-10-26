@@ -71,7 +71,7 @@ class _BillingPageState extends ConsumerState<BillingPage> with WidgetsBindingOb
         title: Text('Cambiar a ${plan.name}'),
         content: Text(up
             ? 'Los nuevos límites aplican desde ahora. El nuevo precio (${formatCents(plan.priceCents)} al mes) se cobra desde la próxima factura.'
-            : 'El nuevo precio aplica desde la próxima factura. Solo se puede si tu uso actual cabe en el plan.'),
+            : 'El nuevo precio aplica desde la próxima factura. Solo se puede si tu uso actual cabe en el plan.',),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Volver')),
           FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Cambiar')),
@@ -150,7 +150,7 @@ class _BillingPageState extends ConsumerState<BillingPage> with WidgetsBindingOb
                         title: Text(o.autopay ? 'Cobro automático activo' : 'Activar cobro automático'),
                         subtitle: Text(o.autopay
                             ? 'Cada mes se cobra a tu tarjeta. Puedes cambiarla cuando quieras.'
-                            : 'Registra una tarjeta y olvídate de pagar cada mes (Yape no lo permite).'),
+                            : 'Registra una tarjeta y olvídate de pagar cada mes (Yape no lo permite).',),
                         trailing: TextButton(onPressed: _setupCard, child: Text(o.autopay ? 'Cambiar' : 'Registrar')),
                       ),
                     ),
@@ -169,7 +169,7 @@ class _BillingPageState extends ConsumerState<BillingPage> with WidgetsBindingOb
                                     _limit(p.limits.branches, 'sucursal', 'sucursales'),
                                     _limit(p.limits.members, 'usuario', 'usuarios'),
                                     _limit(p.limits.products, 'producto', 'productos'),
-                                  ].join(' · ')),
+                                  ].join(' · '),),
                                   trailing: p.code == o.plan.code
                                       ? const Pill('Actual', dark: true)
                                       : TextButton(onPressed: () => _changePlan(p, o), child: Text('${formatCents(p.priceCents)}/mes')),

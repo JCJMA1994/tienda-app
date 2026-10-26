@@ -177,7 +177,7 @@ class _ProductCard extends StatelessWidget {
                 ProductThumb(url: product.imageUrl, size: 40),
                 const SizedBox(width: PerchaSpace.sm),
                 Expanded(child: Text(product.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w600))),
-              ]),
+              ],),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

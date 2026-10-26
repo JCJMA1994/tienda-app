@@ -119,7 +119,7 @@ class _DocumentSheetState extends ConsumerState<_DocumentSheet> {
             if (!_factura)
               DropdownButtonFormField<DocType>(
                 // Si el monto exige identificar al cliente, 'Clientes varios' deja de ser opción.
-                value: needsId && _type == DocType.none ? null : _type,
+                initialValue: needsId && _type == DocType.none ? null : _type,
                 decoration: InputDecoration(labelText: 'Cliente', helperText: needsId ? 'Más de S/ ${widget.anonLimitCents ~/ 100}: SUNAT exige identificarlo' : null),
                 items: [
                   if (!needsId) const DropdownMenuItem(value: DocType.none, child: Text('Clientes varios (sin documento)')),

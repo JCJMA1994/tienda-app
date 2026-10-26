@@ -149,7 +149,7 @@ class ReportsApi {
               units: _i(t['units']),
               netSalesCents: _i(t['netSalesCents']),
               grossMarginCents: t['grossMarginCents'] == null ? null : _i(t['grossMarginCents']),
-            ))
+            ),)
         .toList();
   }
 
@@ -161,7 +161,7 @@ class ReportsApi {
             sold: _i(v['sold']),
             stock: _i(v['stock']),
             sellThroughPct: (v['sellThroughPct'] as num?)?.toDouble(),
-          ));
+          ),);
       return AttributeRotation(name: a['name'] as String, values: values.toList());
     }).toList();
   }
@@ -192,7 +192,7 @@ class ReportsApi {
                 units: _i(c['units']),
                 retailValueCents: _i(c['retailValueCents']),
                 costValueCents: c['costValueCents'] == null ? null : _i(c['costValueCents']),
-              ))
+              ),)
           .toList(),
       totalUnits: _i(res['totalUnits']),
       totalRetailValueCents: _i(res['totalRetailValueCents']),

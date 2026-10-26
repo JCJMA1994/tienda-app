@@ -178,7 +178,7 @@ class _ReturnPageState extends ConsumerState<ReturnPage> with ActionRunner {
                   title: Text(l.productName, style: const TextStyle(fontWeight: FontWeight.w600)),
                   subtitle: Text(l.returnable == 0
                       ? 'Ya devuelta'
-                      : [if (l.optionsLabel.isNotEmpty) l.optionsLabel, 'pagó ${formatCents((l.lineTotalCents / l.quantity).round())} c/u'].join(' · ')),
+                      : [if (l.optionsLabel.isNotEmpty) l.optionsLabel, 'pagó ${formatCents((l.lineTotalCents / l.quantity).round())} c/u'].join(' · '),),
                   trailing: l.returnable == 0
                       ? null
                       : _Stepper(
@@ -233,7 +233,7 @@ class _ReturnPageState extends ConsumerState<ReturnPage> with ActionRunner {
         const SizedBox(height: PerchaSpace.sm),
         Wrap(spacing: 6, runSpacing: 6, children: [
           for (final r in _reasons) ActionChip(label: Text(r), onPressed: () => setState(() => _reason.text = r)),
-        ]),
+        ],),
         const SizedBox(height: PerchaSpace.sm),
         TextField(controller: _reason, decoration: const InputDecoration(labelText: 'Motivo')),
         const SizedBox(height: PerchaSpace.xl),

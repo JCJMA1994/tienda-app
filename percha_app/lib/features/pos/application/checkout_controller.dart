@@ -188,7 +188,7 @@ class CheckoutController extends AutoDisposeNotifier<bool> {
         try {
           return CheckoutDone(await ref.read(posApiProvider).postSale(body, idempotencyKey: key));
         } on ApiError catch (e) {
-          if (e.isNetwork) return _queueOffline(r, body, key, offlineAllowed: credit == null && pin == null);
+          if (e.isNetwork) return await _queueOffline(r, body, key, offlineAllowed: credit == null && pin == null);
           final approval = e.code == 'APPROVAL_REQUIRED' || e.code == 'APPROVAL_INVALID';
           if (!approval || attempt > 0) rethrow;
           pin = await ask.askApproval(e.code == 'APPROVAL_INVALID' ? 'PIN incorrecto. Intenta de nuevo.' : 'Esta venta requiere aprobación.');
@@ -201,7 +201,7 @@ class CheckoutController extends AutoDisposeNotifier<bool> {
         'INSUFFICIENT_STOCK' => 'Stock insuficiente: quedan ${e.data['available']} unidades de una prenda.',
         'CASH_CLOSED' => 'La caja está cerrada. Ábrela para seguir vendiendo.',
         _ => e.message,
-      });
+      },);
     } catch (_) {
       return const CheckoutFailed('No se pudo registrar la venta. Revisa la conexión e intenta de nuevo.');
     } finally {
@@ -222,7 +222,7 @@ extension on CheckoutController {
     await ref.read(offlineQueueProvider.notifier).enqueue(key: key, body: {
       ...body,
       'offline': {'occurredAt': DateTime.now().toUtc().toIso8601String(), 'sellerMembershipId': ref.read(meProvider).membershipId},
-    });
+    },);
     await ref.read(posSnapshotProvider(r.branchId).notifier).discount(r.items);
     return CheckoutQueued(r.totalCents);
   }

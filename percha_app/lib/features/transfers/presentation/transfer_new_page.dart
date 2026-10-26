@@ -75,7 +75,7 @@ class _NewTransferPageState extends ConsumerState<NewTransferPage> with ActionRu
                 Text('Desde: ${from.name}', style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: PerchaSpace.md),
                 DropdownButtonFormField<String>(
-                  value: _to,
+                  initialValue: _to,
                   decoration: const InputDecoration(labelText: 'Hacia'),
                   items: [for (final b in branches.where((b) => b.id != from.id)) DropdownMenuItem(value: b.id, child: Text(b.name))],
                   onChanged: (v) => setState(() => _to = v),
@@ -90,7 +90,7 @@ class _NewTransferPageState extends ConsumerState<NewTransferPage> with ActionRu
                 Row(children: [
                   Expanded(child: Text('Prendas · $units unid.', style: Theme.of(context).textTheme.titleMedium)),
                   TextButton.icon(onPressed: () => _add(from), icon: const Icon(Icons.add), label: const Text('Agregar')),
-                ]),
+                ],),
                 for (final e in _items.entries)
                   ListTile(
                     contentPadding: EdgeInsets.zero,
@@ -114,7 +114,7 @@ class _NewTransferPageState extends ConsumerState<NewTransferPage> with ActionRu
                         icon: const Icon(Icons.add),
                         onPressed: e.value.qty >= e.value.max ? null : () => setState(() => _items[e.key] = (label: e.value.label, qty: e.value.qty + 1, max: e.value.max)),
                       ),
-                    ]),
+                    ],),
                   ),
               ],
             ),
@@ -204,14 +204,14 @@ class _PickSheetState extends ConsumerState<_PickSheet> {
                             if (mounted) setState(() => _product = full);
                           },
                         ),
-                    ]),
+                    ],),
                   ),
-                ])
+                ],)
               : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   Row(children: [
                     IconButton(tooltip: 'Otro producto', icon: const Icon(Icons.arrow_back), onPressed: () => setState(() => _product = null)),
                     Expanded(child: Text(p.name, style: Theme.of(context).textTheme.titleLarge)),
-                  ]),
+                  ],),
                   Expanded(
                     child: ListView(children: [
                       for (final v in p.variants.where((v) => v.stockIn(widget.branchId).quantity > 0))
@@ -229,12 +229,12 @@ class _PickSheetState extends ConsumerState<_PickSheet> {
                                 decoration: const InputDecoration(hintText: '0', isDense: true),
                               ),
                             ),
-                          ]),
+                          ],),
                         ),
-                    ]),
+                    ],),
                   ),
                   FilledButton(onPressed: _done, child: const Text('Agregar')),
-                ]),
+                ],),
         ),
       ),
     );
