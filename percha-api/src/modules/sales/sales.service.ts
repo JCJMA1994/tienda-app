@@ -259,7 +259,8 @@ export class SalesService {
     const levels = await tx
       .select({ variantId: stockLevels.variantId, quantity: stockLevels.quantity })
       .from(stockLevels)
-      .where(and(eq(stockLevels.branchId, branchId), inArray(stockLevels.variantId, lines.map((l) => l.variantId))));
+      .where(and(eq(stockLevels.branchId, branchId), inArray(stockLevels.variantId, lines.map((l) => l.variantId))))
+      .for('update');
     const shortfalls = lines
       .map((l) => ({ line: l, missing: l.quantity - Math.max(levels.find((x) => x.variantId === l.variantId)?.quantity ?? 0, 0) }))
       .filter((x) => x.missing > 0);
@@ -278,6 +279,10 @@ export class SalesService {
         reason: 'Ajuste automático: venta sin conexión con stock insuficiente al sincronizar (revisa el conteo)',
       })),
     );
+    await this.audit.log(tx, user, 'inventory.offline_adjustment', 'sale', saleId, {
+      branchId,
+      shortfalls: shortfalls.map((s) => ({ variantId: s.line.variantId, missing: s.missing })),
+    });
     await this.events.publish(tx, { type: 'stock.offline_shortfall', tenantId: user.tenantId, branchId, saleId, variants: shortfalls.map((s) => ({ variantId: s.line.variantId, missing: s.missing })) });
   }
 
