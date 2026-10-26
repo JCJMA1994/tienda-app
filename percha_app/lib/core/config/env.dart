@@ -10,8 +10,7 @@ class Env {
   static String get apiBaseUrl {
     const fromEnv = String.fromEnvironment('API_BASE_URL');
     if (fromEnv.isNotEmpty) return fromEnv;
-    // En Web o Desktop conectamos directo a localhost; en emulador Android a 10.0.2.2
-    return kIsWeb ? 'http://localhost:3000/v1' : 'http://10.0.2.2:3000/v1';
+    return 'https://percha-api-nss4.onrender.com/v1';
   }
 
   /// Base de los enlaces de invitación que se comparten con el equipo.
