@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:percha_app/features/pos/application/checkout.dart';
+import 'package:percha_app/features/pos/domain/checkout.dart';
 
 void main() {
   test('sin vale: todo con el medio elegido', () {

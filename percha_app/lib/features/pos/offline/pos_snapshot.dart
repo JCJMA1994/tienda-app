@@ -81,11 +81,11 @@ class PosSnapshot {
     );
   }
 
-  static SellableVariant _toSellable(Map<String, dynamic> v) => SellableVariant(
+  static SellableVariant _toSellable(Map v) => SellableVariant(
         id: v['id'] as String,
         sku: v['sku'] as String,
         productName: v['productName'] as String,
-        options: (v['options'] as Map<String, dynamic>).cast<String, String>(),
+        options: Map<String, String>.from(v['options'] as Map),
         priceCents: (v['priceCents'] as num).toInt(),
         sellable: true,
         stock: (v['stock'] as num).toInt(),

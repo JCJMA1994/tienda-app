@@ -9,6 +9,7 @@ import '../../core/widgets/action_runner.dart';
 import '../../core/widgets/percha_widgets.dart';
 import '../auth/application/session_controller.dart';
 import '../catalog/data/catalog_api.dart';
+import '../onboarding/data/store_api.dart';
 import 'promotions_api.dart';
 
 /// Promociones automáticas: se aplican solas en el POS y se muestran en el catálogo en línea.

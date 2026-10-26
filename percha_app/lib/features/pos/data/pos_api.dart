@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/network/api_error.dart';
 import '../../auth/application/session_controller.dart';
-import '../application/checkout.dart';
+import '../domain/checkout.dart';
 import 'pos_models.dart';
 
 class PosApi {

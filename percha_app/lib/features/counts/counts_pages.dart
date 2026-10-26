@@ -9,6 +9,7 @@ import '../../core/theme/tokens.dart';
 import '../../core/widgets/action_runner.dart';
 import '../../core/widgets/percha_widgets.dart';
 import '../auth/application/session_controller.dart';
+import '../onboarding/data/store_api.dart';
 import '../pos/offline/pos_snapshot.dart';
 import '../pos/presentation/scanner_page.dart';
 import 'counts_api.dart';
@@ -95,7 +96,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
   }
 
   /// Una lectura (lector USB o cámara continua): suma 1 a esa prenda.
-  Future<ScanFeedback> _count(String code) async {
+  Future<ScanFeedback> _countCode(String code) async {
     final branch = await ref.read(currentBranchProvider.future);
     try {
       final v = await lookupVariant(ref, code, branch.id);
@@ -217,7 +218,7 @@ class _CountPageState extends ConsumerState<CountPage> with ActionRunner {
                       tooltip: 'Escanear con la cámara',
                       icon: const Icon(Icons.photo_camera_outlined),
                       // Cámara continua: se pasan muchas prendas seguidas sin volver a abrirla.
-                      onPressed: () => scanContinuous(context, title: 'Contando', onCode: _count),
+                      onPressed: () => scanContinuous(context, title: 'Contando', onCode: _countCode),
                     ),
                   ]),
                 ),

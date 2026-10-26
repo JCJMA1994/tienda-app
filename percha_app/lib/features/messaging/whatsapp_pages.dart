@@ -105,7 +105,12 @@ class _WhatsAppSettingsPageState extends ConsumerState<WhatsAppSettingsPage> {
         _loading = false;
       });
     }).catchError((Object e) {
-      if (mounted) setState(() => (_error, _loading) = (errorText(e), false));
+      if (mounted) {
+        setState(() {
+          _error = errorText(e);
+          _loading = false;
+        });
+      }
     });
   }
 

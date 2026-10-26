@@ -103,7 +103,7 @@ class _OnboardingCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Configura tu tienda', style: TextStyle(color: PerchaColors.onInverse, fontWeight: FontWeight.w600, fontSize: PerchaType.strong)),
+                Text('Configura tu tienda', style: TextStyle(color: PerchaColors.onInverse, fontWeight: FontWeight.w600, fontSize: PerchaType.strong)),
                 Text('${progress.completed} de ${progress.total}', style: TextStyle(color: PerchaColors.onInverse.withValues(alpha: 0.75), fontSize: PerchaType.small)),
               ],
             ),

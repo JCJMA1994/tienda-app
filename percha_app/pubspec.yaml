@@ -20,7 +20,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2 # tokens en Keychain / Keystore, nunca en SharedPreferences
   mobile_scanner: ^6.0.2        # lector de códigos de barras con la cámara
   google_fonts: ^6.2.1          # Sora (títulos) e Inter (texto)
-  intl: ^0.19.0                 # formato de moneda
+  intl: ">=0.19.0 <0.21.0"      # formato de moneda
   file_picker: ^8.1.2           # elegir el Excel del catálogo
   excel: ^4.0.6                 # leer .xlsx en el dispositivo (la API recibe JSON)
   url_launcher: ^6.3.1          # abrir el checkout de Culqi / Stripe en el navegador

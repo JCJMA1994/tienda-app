@@ -6,6 +6,7 @@ import '../../core/money.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/widgets/percha_widgets.dart';
 import '../auth/application/session_controller.dart';
+import '../onboarding/data/store_api.dart';
 import '../printing/print_actions.dart';
 import 'cash_api.dart';
 

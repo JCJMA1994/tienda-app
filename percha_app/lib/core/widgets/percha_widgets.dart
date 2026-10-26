@@ -115,7 +115,7 @@ class BusyButton extends StatelessWidget {
     return FilledButton(
       onPressed: busy ? null : onPressed,
       child: busy
-          ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.4, color: PerchaColors.onAccent))
+          ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.4, color: PerchaColors.onAccent))
           : Text(label),
     );
   }
