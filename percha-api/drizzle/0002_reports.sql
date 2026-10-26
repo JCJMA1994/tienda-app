@@ -1,0 +1,2 @@
+ALTER TABLE "tenants" ADD COLUMN "timezone" text DEFAULT 'America/Lima' NOT NULL;--> statement-breakpoint
+CREATE INDEX "stock_movements_tenant_created_idx" ON "stock_movements" USING btree ("tenant_id","created_at");

@@ -1,0 +1,39 @@
+name: percha_app
+description: App de Percha — inventario y POS para boutiques.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:          # textos de Material en español (fechas, diálogos)
+    sdk: flutter
+  flutter_web_plugins:            # URLs limpias en la web (/invite?token=… sin #)
+    sdk: flutter
+  flutter_riverpod: ^2.6.1      # estado (sin generación de código)
+  go_router: ^14.6.2            # navegación declarativa con redirecciones por sesión
+  dio: ^5.7.0                   # HTTP con interceptores (token + refresh)
+  flutter_secure_storage: ^9.2.2 # tokens en Keychain / Keystore, nunca en SharedPreferences
+  mobile_scanner: ^6.0.2        # lector de códigos de barras con la cámara
+  google_fonts: ^6.2.1          # Sora (títulos) e Inter (texto)
+  intl: ^0.19.0                 # formato de moneda
+  file_picker: ^8.1.2           # elegir el Excel del catálogo
+  excel: ^4.0.6                 # leer .xlsx en el dispositivo (la API recibe JSON)
+  url_launcher: ^6.3.1          # abrir el checkout de Culqi / Stripe en el navegador
+  image_picker: ^1.1.2          # fotos de producto (cámara o galería)
+  pdf: ^3.11.1                  # ticket y etiquetas como PDF (código de barras y QR incluidos)
+  printing: ^5.13.4             # imprimir / compartir: térmicas con servicio de impresión, AirPrint, web
+  qr_flutter: ^4.1.0            # QR para vincular la app autenticadora (2FA)
+  shared_preferences: ^2.3.3    # preferencias NO sensibles (modo oscuro); los tokens van en secure storage
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

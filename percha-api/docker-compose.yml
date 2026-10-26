@@ -1,0 +1,13 @@
+# Postgres local para desarrollo. En producción usa Neon u otro Postgres gestionado.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/bootstrap.sql:/docker-entrypoint-initdb.d/01-bootstrap.sql:ro
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

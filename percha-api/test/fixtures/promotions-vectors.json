@@ -1,0 +1,305 @@
+{
+  "_doc": "Casos compartidos por el motor de la API (TypeScript) y el de la app (Dart). Si cambias una regla, cambia aquí y copia este archivo a percha_app/test/fixtures/: ambos deben pasar.",
+  "promotions": {
+    "p20": {
+      "id": "p20",
+      "name": "Liquidación 20 %",
+      "kind": "percent",
+      "percentBp": 2000,
+      "scope": "categories",
+      "categoryIds": [
+        "cVer"
+      ],
+      "productIds": []
+    },
+    "p10all": {
+      "id": "p10all",
+      "name": "10 % todo",
+      "kind": "percent",
+      "percentBp": 1000,
+      "scope": "all",
+      "categoryIds": [],
+      "productIds": []
+    },
+    "b21": {
+      "id": "b21",
+      "name": "2x1 blusas",
+      "kind": "buy_x_pay_y",
+      "buyQty": 2,
+      "payQty": 1,
+      "scope": "products",
+      "categoryIds": [],
+      "productIds": [
+        "blusa",
+        "polo"
+      ]
+    },
+    "b32": {
+      "id": "b32",
+      "name": "3x2",
+      "kind": "buy_x_pay_y",
+      "buyQty": 3,
+      "payQty": 2,
+      "scope": "all",
+      "categoryIds": [],
+      "productIds": []
+    }
+  },
+  "cases": [
+    {
+      "name": "sin promociones",
+      "promos": [],
+      "lines": [
+        {
+          "productId": "vestido",
+          "categoryId": "cVer",
+          "quantity": 1,
+          "unitPriceCents": 18990
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            0,
+            null
+          ]
+        ],
+        "total": 0
+      }
+    },
+    {
+      "name": "porcentaje por categoría, redondeo por prenda",
+      "promos": [
+        "p20"
+      ],
+      "lines": [
+        {
+          "productId": "vestido",
+          "categoryId": "cVer",
+          "quantity": 3,
+          "unitPriceCents": 18995
+        },
+        {
+          "productId": "jean",
+          "categoryId": "cInv",
+          "quantity": 1,
+          "unitPriceCents": 15990
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            11397,
+            "p20"
+          ],
+          [
+            0,
+            null
+          ]
+        ],
+        "total": 11397
+      }
+    },
+    {
+      "name": "el mejor porcentaje gana (20 % sobre 10 %)",
+      "promos": [
+        "p10all",
+        "p20"
+      ],
+      "lines": [
+        {
+          "productId": "vestido",
+          "categoryId": "cVer",
+          "quantity": 1,
+          "unitPriceCents": 10000
+        },
+        {
+          "productId": "jean",
+          "categoryId": "cInv",
+          "quantity": 1,
+          "unitPriceCents": 10000
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            2000,
+            "p20"
+          ],
+          [
+            1000,
+            "p10all"
+          ]
+        ],
+        "total": 3000
+      }
+    },
+    {
+      "name": "2x1 entre productos distintos: sale gratis la más barata",
+      "promos": [
+        "b21"
+      ],
+      "lines": [
+        {
+          "productId": "blusa",
+          "categoryId": null,
+          "quantity": 1,
+          "unitPriceCents": 7990
+        },
+        {
+          "productId": "polo",
+          "categoryId": null,
+          "quantity": 1,
+          "unitPriceCents": 4990
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            0,
+            null
+          ],
+          [
+            4990,
+            "b21"
+          ]
+        ],
+        "total": 4990
+      }
+    },
+    {
+      "name": "2x1 con número impar: la tercera paga precio normal",
+      "promos": [
+        "b21"
+      ],
+      "lines": [
+        {
+          "productId": "blusa",
+          "categoryId": null,
+          "quantity": 3,
+          "unitPriceCents": 7990
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            7990,
+            "b21"
+          ]
+        ],
+        "total": 7990
+      }
+    },
+    {
+      "name": "3x2 en todo el ticket, de la más cara a la más barata",
+      "promos": [
+        "b32"
+      ],
+      "lines": [
+        {
+          "productId": "vestido",
+          "categoryId": "cVer",
+          "quantity": 2,
+          "unitPriceCents": 20000
+        },
+        {
+          "productId": "polo",
+          "categoryId": null,
+          "quantity": 2,
+          "unitPriceCents": 5000
+        },
+        {
+          "productId": "blusa",
+          "categoryId": null,
+          "quantity": 2,
+          "unitPriceCents": 8000
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            0,
+            null
+          ],
+          [
+            5000,
+            "b32"
+          ],
+          [
+            8000,
+            "b32"
+          ]
+        ],
+        "total": 13000
+      }
+    },
+    {
+      "name": "si el porcentaje ahorra más que el 2x1, se aplica el porcentaje",
+      "promos": [
+        "b32",
+        "p20"
+      ],
+      "lines": [
+        {
+          "productId": "vestido",
+          "categoryId": "cVer",
+          "quantity": 2,
+          "unitPriceCents": 50000
+        },
+        {
+          "productId": "polo",
+          "categoryId": "cVer",
+          "quantity": 1,
+          "unitPriceCents": 1000
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            20000,
+            "p20"
+          ],
+          [
+            200,
+            "p20"
+          ]
+        ],
+        "total": 20200
+      }
+    },
+    {
+      "name": "2x1 primero y el resto con porcentaje",
+      "promos": [
+        "b21",
+        "p10all"
+      ],
+      "lines": [
+        {
+          "productId": "blusa",
+          "categoryId": null,
+          "quantity": 2,
+          "unitPriceCents": 6000
+        },
+        {
+          "productId": "jean",
+          "categoryId": "cInv",
+          "quantity": 1,
+          "unitPriceCents": 10000
+        }
+      ],
+      "expect": {
+        "lines": [
+          [
+            6000,
+            "b21"
+          ],
+          [
+            1000,
+            "p10all"
+          ]
+        ],
+        "total": 7000
+      }
+    }
+  ]
+}

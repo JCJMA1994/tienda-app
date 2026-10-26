@@ -1,0 +1,9 @@
+:root { color-scheme: light dark; }
+html, body { margin: 0; height: 100%; background: #F7F6F4; }
+@media (prefers-color-scheme: dark) { html, body { background: #0D0C0B; } #splash p { color: #A39D96; } }
+#splash { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+#splash img { border-radius: 18px; animation: pulse 1.4s ease-in-out infinite; }
+#splash p { margin: 0; color: #6B6560; font-size: 15px; }
+.noscript { font-family: system-ui, sans-serif; text-align: center; padding: 40px; }
+@keyframes pulse { 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { #splash img { animation: none; } }
