@@ -20,10 +20,11 @@ build/
 *.pem
 *.key
 
-# Storage & uploads
-storage/
-media/
-uploads/
+# Storage & uploads (local disk data)
+/storage/
+/percha-api/storage/
+/media/
+/uploads/
 
 # IDE / Editor
 .idea/
