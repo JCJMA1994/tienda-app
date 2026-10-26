@@ -114,6 +114,13 @@ const assertSafe = (env: Env) => {
 };
 
 export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
+  if (source === process.env && typeof (process as any).loadEnvFile === 'function') {
+    try {
+      (process as any).loadEnvFile('.env');
+    } catch (_) {
+      // .env no existe o no pudo cargarse; se usan las variables del entorno del sistema
+    }
+  }
   const parsed = EnvSchema.safeParse(source);
   if (!parsed.success) {
     const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('\n');
